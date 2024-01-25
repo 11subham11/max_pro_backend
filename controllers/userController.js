@@ -18,7 +18,8 @@ const auth = (req, res) => {
 // Admin Login
 const loginUser = async (req, res) => {
   try {
-    const data = req.body.values;
+    const data = req.body;
+    console.log(data);
     if (data) {
       const userExists = await All_Users.findOne({
         where: {
@@ -72,7 +73,7 @@ const loginUser = async (req, res) => {
                   {
                     role: userExists.role,
                     id: userExists.id,
-                    name: userExists.firstName,
+                    name: userExists.name,
                     email: userExists.email,
                   },
                   "importantsecret"
@@ -82,7 +83,7 @@ const loginUser = async (req, res) => {
                   message: "success",
                   role: userExists.role,
                   id: userExists.id,
-                  name: userExists.firstName,
+                  name: userExists.name,
                   email: userExists.email,
                 });
               }
@@ -112,15 +113,16 @@ const registerUser = async (req, res) => {
       const emailExists = await All_Users.findOne({
         where: {
           email: data.email,
+          isDeleted: 0,
         },
       });
-      const phoneExists = await All_Users.findOne({
-        where: {
-          phone: data.phone,
-        },
-      });
+      // const phoneExists = await All_Users.findOne({
+      //   where: {
+      //     phone: data.phone,
+      //   },
+      // });
 
-      if (emailExists || phoneExists) {
+      if (emailExists) {
         res.json({
           error:
             "User is already registered with the given Phone Number or Email",
