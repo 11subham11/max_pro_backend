@@ -18,5 +18,17 @@ module.exports = {
         <p>message: ${data.message}</p>
         </div>
       `,
+    text: `hello`,
+  }),
+  login: (data) => ({
+    subject: "Login Information",
+    html: `
+        <div>
+        <p>Name: ${data.name}</p>
+        <p>email: ${data.email}</p>
+        <p>Has Logged into the website at ${data.date}</p>
+        </div>
+      `,
+    text: `hello`,
   }),
 };

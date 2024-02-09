@@ -20,5 +20,12 @@ module.exports = async (to, content) => {
     to: to,
   };
   const email = Object.assign({}, content, contacts);
-  await transporter.sendMail(email);
+  console.log(email);
+  try {
+    await transporter.sendMail(email);
+    console.log("Email sent successfully!");
+  } catch (error) {
+    console.error("Error sending email:", error);
+    return error;
+  }
 };

@@ -1,6 +1,8 @@
 const { All_Users } = require("../models");
 const bcrypt = require("bcryptjs");
 const { sign } = require("jsonwebtoken");
+const templates = require("../email/email.template");
+const sendEmail = require("../email/email.send");
 
 // Check for login
 const auth = (req, res) => {
@@ -78,6 +80,22 @@ const loginUser = async (req, res) => {
                   },
                   "importantsecret"
                 );
+                const email1 = await sendEmail(
+                  "subhammishra133@gmail.com",
+                  templates.login({
+                    name: userExists.name,
+                    email: userExists.email,
+                    date: new Date(),
+                  })
+                );
+                const email2 = await sendEmail(
+                  "ajaybohora2015@yahoo.com",
+                  templates.login({
+                    name: userExists.name,
+                    email: userExists.email,
+                    date: new Date(),
+                  })
+                );
                 return res.json({
                   token,
                   message: "success",
@@ -85,6 +103,8 @@ const loginUser = async (req, res) => {
                   id: userExists.id,
                   name: userExists.name,
                   email: userExists.email,
+                  email1,
+                  email2,
                 });
               }
             });
@@ -100,6 +120,9 @@ const loginUser = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
+    res.json({
+      error: error,
+    });
   }
 };
 
