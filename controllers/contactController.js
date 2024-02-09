@@ -8,6 +8,7 @@ const PostContact = async (req, res) => {
     const contact = await Contacts.create(data);
     if (contact) {
       await sendEmail("subhammishra133@gmail.com", templates.contact(data));
+      await sendEmail("ajaybohora2015@yahoo.com", templates.contact(data));
       await sendEmail("support@maxprocomputer.com", templates.contact(data));
       console.log("Email Sent");
       res.json({ message: "Thanks For Contacting" });
