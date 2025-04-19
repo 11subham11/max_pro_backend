@@ -33,6 +33,12 @@ app.use("/api/v1/contacts", contactsRouter);
 const usersRouter = require("./routes/Users");
 app.use("/api/v1/users", usersRouter);
 
+const homeRouter = require("./routes/home");
+app.use("/api/v1/home", homeRouter);
+
+const cmsRouter = require("./routes/cms");
+app.use("/api/v1/home/cms", cmsRouter);
+
 // Sync sequelize every time it runs
 
 db.sequelize.sync().then(() => {
